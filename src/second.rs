@@ -114,6 +114,5 @@ fn get_points_second_task(str: &String) -> i32 {
         RoundResult::Win => opponent.get_stronger_shape(),
         RoundResult::Lose => opponent.get_weeker_shape(),
     };
-    my.points();
     my.points() + expected_result.points()
 }
