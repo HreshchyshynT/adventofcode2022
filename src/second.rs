@@ -2,7 +2,7 @@ use std::{self, io::BufRead};
 
 use crate::utils;
 
-#[derive(PartialEq, Debug)]
+#[derive(PartialEq, Clone, Copy)]
 enum HandShape {
     Rock = 1,
     Paper = 2,
@@ -42,8 +42,24 @@ impl HandShape {
             RoundResult::Lose
         }
     }
+
+    fn points(&self) -> i32 {
+        return *self as i32;
+    }
 }
 
+impl From<char> for HandShape {
+    fn from(input: char) -> Self {
+        match input {
+            'A' | 'X' => HandShape::Rock,
+            'B' | 'Y' => HandShape::Paper,
+            'C' | 'Z' => HandShape::Scissors,
+            _ => panic!("unknown char: {}", input),
+        }
+    }
+}
+
+#[derive(Clone, Copy)]
 enum RoundResult {
     Lose = 0,
     Draw = 3,
@@ -61,14 +77,9 @@ impl From<char> for RoundResult {
     }
 }
 
-impl From<char> for HandShape {
-    fn from(input: char) -> Self {
-        match input {
-            'A' | 'X' => HandShape::Rock,
-            'B' | 'Y' => HandShape::Paper,
-            'C' | 'Z' => HandShape::Scissors,
-            _ => panic!("unknown char: {}", input),
-        }
+impl RoundResult {
+    fn points(&self) -> i32 {
+        *self as i32
     }
 }
 
@@ -91,7 +102,7 @@ fn get_points_first_task(str: &String) -> i32 {
     let opponent: HandShape = chars[0].into();
     let my: HandShape = chars[2].into();
     let round_result = my.play(&opponent);
-    my as i32 + round_result as i32
+    my.points() + round_result.points()
 }
 
 fn get_points_second_task(str: &String) -> i32 {
@@ -103,5 +114,6 @@ fn get_points_second_task(str: &String) -> i32 {
         RoundResult::Win => opponent.get_stronger_shape(),
         RoundResult::Lose => opponent.get_weeker_shape(),
     };
-    my as i32 + expected_result as i32
+    my.points();
+    my.points() + expected_result.points()
 }
