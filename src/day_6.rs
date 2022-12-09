@@ -1,6 +1,5 @@
 use std::{
     collections::{HashSet, VecDeque},
-    fmt::Display,
     io::{BufRead, Result},
 };
 

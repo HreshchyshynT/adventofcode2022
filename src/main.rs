@@ -1,5 +1,6 @@
 mod day_5;
 mod day_6;
+mod day_9;
 mod first;
 mod fourth;
 mod second;
@@ -14,6 +15,8 @@ fn main() -> io::Result<()> {
     // third::run()?;
     // fourth::run()?;
     // day_5::run()?;
-    day_6::run()?;
+    // day_6::run()?;
+    // day_7::run()?;
+    day_9::run()?;
     Ok(())
 }
